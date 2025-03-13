@@ -1,4 +1,4 @@
-package modules.module_2.aws_sdk.utils;
+package modules.home_tasks.aws_sdk.utils;
 
 import software.amazon.awssdk.services.iam.IamClient;
 import software.amazon.awssdk.services.iam.model.Group;

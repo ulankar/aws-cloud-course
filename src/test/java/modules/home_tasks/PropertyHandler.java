@@ -1,4 +1,4 @@
-package modules.module_2;
+package modules.home_tasks;
 
 import java.io.IOException;
 import java.io.InputStream;

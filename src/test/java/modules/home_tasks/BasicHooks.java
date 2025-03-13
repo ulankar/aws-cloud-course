@@ -1,4 +1,4 @@
-package modules.module_2;
+package modules.home_tasks;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeAll;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static modules.module_2.PropertyHandler.setPropertiesForEnvironment;
+import static modules.home_tasks.PropertyHandler.setPropertiesForEnvironment;
 
 
 public abstract class BasicHooks {

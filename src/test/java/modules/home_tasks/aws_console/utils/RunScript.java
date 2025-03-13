@@ -1,4 +1,4 @@
-package modules.module_2.aws_console.utils;
+package modules.home_tasks.aws_console.utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;

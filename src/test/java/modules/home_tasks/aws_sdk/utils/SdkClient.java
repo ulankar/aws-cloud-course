@@ -1,4 +1,4 @@
-package modules.module_2.aws_sdk.utils;
+package modules.home_tasks.aws_sdk.utils;
 
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
@@ -7,7 +7,7 @@ import software.amazon.awssdk.services.iam.IamClient;
 
 import java.io.IOException;
 
-import static modules.module_2.PropertyHandler.getProperty;
+import static modules.home_tasks.PropertyHandler.getProperty;
 
 public class SdkClient {
 
