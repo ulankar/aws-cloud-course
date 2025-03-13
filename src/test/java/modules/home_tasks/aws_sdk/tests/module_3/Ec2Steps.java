@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import static modules.home_tasks.aws_sdk.utils.MessageLogger.logMessage;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -17,6 +18,7 @@ public class Ec2Steps {
 
     void verifyInstance(Ec2Model instance) {
         logger.info("Instance ID: " + instance.getInstanceId());
+        logMessage("Instance details:\n" + instance.toString());
         assertAll(
                 () -> assertEquals("running", instance.getState(),
                         "Expected state to be 'running' but was " + instance.getState()),

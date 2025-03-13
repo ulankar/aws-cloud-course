@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static java.util.regex.Pattern.matches;
+import static modules.home_tasks.aws_sdk.utils.MessageLogger.logMessage;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -55,7 +56,8 @@ public class Ec2Test extends BaseRequest {
             throw new IllegalStateException("No instances found");
         }
         steps.verifyInstance(instances.get(0));
-        assertNull(instances.get(0).getPublicIp(), "Expected public IP to be present");
+        logMessage("Private instance:\n" + instances.get(0));
+        assertNull(instances.get(0).getPublicIp(), "Expected public IP NOT to be present");
     }
 
     @Test
@@ -66,6 +68,7 @@ public class Ec2Test extends BaseRequest {
             throw new IllegalStateException("Second instance not found");
         }
         steps.verifyInstance(instances.get(1));
+        logMessage("Public instance:\n" + instances.get(1));
         assertTrue(matches("\\d+\\.\\d+\\.\\d+\\.\\d+", instances.get(1).getPublicIp()),
                 "Expected public IP to be present");
     }
@@ -80,6 +83,7 @@ public class Ec2Test extends BaseRequest {
         }
         for (String volumeId : volumeIds) {
             DescribeVolumesRequest volumeReq = DescribeVolumesRequest.builder().volumeIds(volumeId).build();
+            logMessage("Volume details: " + ec2Client.describeVolumes(volumeReq).volumes().get(0));
             assertEquals(8, ec2Client.describeVolumes(volumeReq).volumes().get(0).size(),
                     "Expected size to be equal to 8, but was "
                             + ec2Client.describeVolumes(volumeReq).volumes().get(0).size());

@@ -23,4 +23,16 @@ public class Ec2Model {
         this.name = name;
         this.volumeId = volumeId;
     }
+
+    @Override
+    public String toString() {
+        return "Instance ID: " + instanceId +
+                "\nState: " + state +
+                "\nInstance type: " + instanceType +
+                "\nTag: " + tag +
+                "\nPublicIp: " + publicIp +
+                "\nPlatform: " + platform +
+                "\nName: " + name +
+                "\nVolume ID: " + volumeId;
+    }
 }
