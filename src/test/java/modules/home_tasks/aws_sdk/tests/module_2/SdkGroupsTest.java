@@ -1,7 +1,7 @@
-package modules.module_2.aws_sdk.tests;
+package modules.home_tasks.aws_sdk.tests.module_2;
 
-import modules.module_2.BasicHooks;
-import modules.module_2.aws_sdk.utils.GetEntitiesLists;
+import modules.home_tasks.BasicHooks;
+import modules.home_tasks.aws_sdk.utils.GetEntitiesLists;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
@@ -15,8 +15,8 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-import static modules.module_2.aws_sdk.utils.SdkClient.getIamClient;
-import static modules.module_2.aws_sdk.utils.SdkClient.iam;
+import static modules.home_tasks.aws_sdk.utils.SdkClient.getIamClient;
+import static modules.home_tasks.aws_sdk.utils.SdkClient.iam;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;

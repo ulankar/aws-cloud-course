@@ -1,6 +1,6 @@
-package modules.module_2.aws_console;
+package modules.home_tasks.aws_console;
 
-import modules.module_2.aws_console.utils.RunScript;
+import modules.home_tasks.aws_console.utils.RunScript;
 import org.junit.jupiter.api.Test;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
