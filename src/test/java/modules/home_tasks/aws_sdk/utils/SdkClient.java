@@ -13,11 +13,11 @@ public class SdkClient {
 
     public static IamClient iam;
 
-    private static String getAccessKeyId() throws IOException {
+    public static String getAccessKeyId() throws IOException {
         return getProperty("AWS_ACCESS_KEY_ID");
     }
 
-    private static String getSecretAccessKey() throws IOException {
+    public static String getSecretAccessKey() throws IOException {
         return getProperty("AWS_SECRET_ACCESS_KEY");
     }
 
