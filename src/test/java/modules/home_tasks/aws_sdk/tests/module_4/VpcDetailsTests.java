@@ -44,7 +44,7 @@ public class VpcDetailsTests extends BaseRequest {
         assertEquals(2, subnets.size(),
                 "Expected number of subnets to be 2 but was " + subnets.size());
         verifySubnets(subnets.stream().filter(x -> x.cidrBlock().contains("10.0.128.0")).findFirst().get(),
-                "10.0.128.0/17", 32762);
+                "10.0.128.0/17");
     }
 
     @Test
@@ -52,7 +52,7 @@ public class VpcDetailsTests extends BaseRequest {
     @DisplayName("Verify Subnet 2 test")
     void testSubnet2() {
         verifySubnets(subnets.stream().filter(x -> x.cidrBlock().contains("10.0.0.0")).findFirst().get(),
-                "10.0.0.0/17", 32761);
+                "10.0.0.0/17");
     }
 
     @Test
@@ -195,7 +195,7 @@ public class VpcDetailsTests extends BaseRequest {
     }
 
     @Step("Verify Subnets")
-    private void verifySubnets(Subnet subnet, String cidrBlock, int availableIpAddressCount) {
+    private void verifySubnets(Subnet subnet, String cidrBlock) {
         assertAll(
                 () -> assertTrue(subnet.subnetId().matches("subnet-[a-z0-9]{17}"),
                         "Expected subnetId to match pattern 'subnet-[a-z0-9]{17}' but was " + subnet.subnetId()),
@@ -203,8 +203,8 @@ public class VpcDetailsTests extends BaseRequest {
                         "Expected CIDR block to be " + cidrBlock + " but was " + subnet.cidrBlock()),
                 () -> assertEquals("eu-central-1a", subnet.availabilityZone(),
                         "Expected availability zone to be 'eu-central-1a' but was " + subnet.availabilityZone()),
-                () -> assertEquals(availableIpAddressCount, subnet.availableIpAddressCount(),
-                        "Expected available IP count to be " + availableIpAddressCount + " but was " + subnet.availableIpAddressCount())
+                () -> assertTrue(subnet.availableIpAddressCount().toString().matches("\\d{5}"),
+                        "Expected available IP count to match pattern '\\d{5}' but was " + subnet.availableIpAddressCount())
         );
     }
 

@@ -36,7 +36,7 @@
                         <configuration>
                             <includes>
 <!--                                <include>**/modules.home_tasks/aws_sdk/tests/module_2/*.java</include>-->
-<!--                                <include>**/modules.home_tasks/aws_sdk/tests/module_3/*.java</include>-->
+                                <include>**/modules.home_tasks/aws_sdk/tests/module_3/*.java</include>
                                 <include>**/modules.home_tasks/aws_sdk/tests/module_4/*.java</include>
                             </includes>
                             <excludes>

@@ -119,7 +119,7 @@ public class ConnectWithSshTest {
 
             String result = readExecutionResult(channel);
             assertAll(
-                    () -> assertTrue(result.contains("/images/branding/googleg")),
+                    () -> assertTrue(result.contains("GoogleDoodle")),
                     () -> assertTrue(result.contains("http://schema.org/WebPage")));
             channel.disconnect();
 
@@ -205,7 +205,7 @@ public class ConnectWithSshTest {
             channel.connect();
             String result = readExecutionResult(channel);
             assertAll(
-                    () -> assertTrue(result.contains("/images/branding/googleg")),
+                    () -> assertTrue(result.contains("GoogleDoodle")),
                     () -> assertTrue(result.contains("http://schema.org/WebPage")));
 
             channel.disconnect();
