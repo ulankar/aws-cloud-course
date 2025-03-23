@@ -15,6 +15,7 @@ public abstract class BasicHooks {
 
     private static final Logger logger = LogManager.getLogger(BasicHooks.class);
     public static String currentDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+    public static String currentDateFormated = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss").format(new Date());
 
     @BeforeAll
     public static void setUp(){
