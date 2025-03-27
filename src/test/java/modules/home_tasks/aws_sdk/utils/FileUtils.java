@@ -52,4 +52,16 @@ public class FileUtils {
     public static String getPathToPemFile() {
         return Paths.get(KEY_DIRECTORY).resolve(KEY_FILE_NAME).toString();
     }
+
+    public static String readFile(String path) {
+        try {
+            Path filePath = Paths.get(path);
+            String content = new String(Files.readAllBytes(filePath));
+            System.out.println(content);
+            return content;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
 }

@@ -42,6 +42,13 @@ public class Ec2DescriptionUtils extends BaseRequest {
                 .contains("Public")).findFirst().get();
     }
 
+    @Step("Get EC2 instance by name")
+    public static Instance getPublicEc2InstanceByName(List<Instance> instances, String name) {
+        return instances.stream().filter(inst -> inst.tags().stream()
+                .filter(tag -> tag.key().equals("Name")).findFirst().get().value()
+                .contains(name)).findFirst().get();
+    }
+
     @Step("Get EC2 key name")
     public static String getEc2KeyName() {
         String keyName = getEc2Instances().get(0).keyName();
