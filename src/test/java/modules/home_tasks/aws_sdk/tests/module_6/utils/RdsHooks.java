@@ -1,6 +1,6 @@
 package modules.home_tasks.aws_sdk.tests.module_6.utils;
 
-import modules.home_tasks.aws_sdk.utils.BaseRequest;
+import modules.home_tasks.BasicHooks;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import software.amazon.awssdk.regions.Region;
@@ -8,12 +8,13 @@ import software.amazon.awssdk.services.cloudformation.CloudFormationClient;
 import software.amazon.awssdk.services.rds.RdsClient;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 
+import static modules.home_tasks.aws_sdk.tests.module_4.SsmConnector.getAccessKey;
 import static modules.home_tasks.aws_sdk.tests.module_6.utils.CloudFormationOutputReader.getSpecificOutput;
 import static modules.home_tasks.aws_sdk.tests.module_6.utils.SecretsManagerReader.getDatabaseCredentials;
 import static modules.home_tasks.aws_sdk.tests.module_6.utils.SecretsManagerReader.getJdbcUrl;
 
 
-public class RdsHooks extends BaseRequest {
+public class RdsHooks extends BasicHooks {
 
     public static RdsClient rdsClient;
     public static CloudFormationClient cfnClient;
@@ -48,23 +49,23 @@ public class RdsHooks extends BaseRequest {
                 .region(Region.EU_CENTRAL_1)
                 .build();
         setUpParameters();
+
+        getAccessKey(); // Get the SSH Private Key
     }
 
     private static void setUpParameters() {
-        db_password = getDatabaseCredentials("DatabaseDBSecretD08C53F5-q64v134E64Ox")
-                .getPassword();
-
         bucket_name = getSpecificOutput(stackName, "ImageBucketName");
         db_host = getSpecificOutput(stackName, "DatabaseHost");
         public_dns = getSpecificOutput(stackName, "AppInstancePublicDns");
         db_port = getSpecificOutput(stackName, "DatabasePort");
         key_id = getSpecificOutput(stackName, "KeyId");
-        db_secret_name = getSpecificOutput(stackName, "DatabaseSecretName");
         public_ip = getSpecificOutput(stackName, "AppInstancePublicIp");
         db_instance_arn = getSpecificOutput(stackName, "DatabaseInstanceArn");
         jdbc_url = getJdbcUrl(db_host, db_port, db_name);
         db_instance_identifier = db_instance_arn
                 .replace("arn:aws:rds:eu-central-1:124355674251:db:", "");
+        db_secret_name = getSpecificOutput(stackName, "DatabaseSecretName");
+        db_password = getDatabaseCredentials(db_secret_name).getPassword();
 
         System.out.println("Bucket name: " + bucket_name + "\n" +
                 "DB host: " + db_host + "\n" +

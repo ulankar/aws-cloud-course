@@ -1,7 +1,6 @@
 package modules.home_tasks.aws_sdk.tests.module_4;
 
 import io.qameta.allure.Step;
-import modules.home_tasks.aws_sdk.utils.BaseRequest;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.DescribeInstancesRequest;
@@ -12,7 +11,7 @@ import software.amazon.awssdk.services.ec2.model.Instance;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Ec2DescriptionUtils extends BaseRequest {
+public class Ec2DescriptionUtils {
 
     static Ec2Client ec2Client;
 

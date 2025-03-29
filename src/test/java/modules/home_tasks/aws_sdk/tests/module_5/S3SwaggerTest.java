@@ -1,7 +1,7 @@
 package modules.home_tasks.aws_sdk.tests.module_5;
 
 import io.restassured.response.Response;
-import modules.home_tasks.aws_sdk.utils.BaseRequest;
+import modules.home_tasks.BasicHooks;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("S3 test suite with Swagger")
-public class S3SwaggerTest extends BaseRequest {
+public class S3SwaggerTest extends BasicHooks {
 
     private static List<Instance> instances;
 
@@ -54,7 +54,7 @@ public class S3SwaggerTest extends BaseRequest {
         List<Integer> ids = steps.getImageIds(endpoint);
         assertAll(() -> assertEquals(ids.size(), 1));
         ids.forEach(id -> {
-            Response image = steps.getImageById(id, endpoint);
+            Response image = steps.getImageById(id, endpoint, 200);
             assertAll(
                     () -> assertEquals(imageId, image.jsonPath().getString("id")),
                     () -> assertTrue(image.jsonPath().getString("last_modified")

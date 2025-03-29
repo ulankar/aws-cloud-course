@@ -60,27 +60,27 @@ public class RdsSecureConnectionTest extends RdsHooks {
     @Test @Order(1)
     @DisplayName("Verify uploading 2 images and checking info in RDS")
     void verifyImagesInfoInDb() {
-//        upload 2 images using Swagger API
+// upload 2 images using Swagger API
         String imageId_1 = steps.uploadImage(imagePath + imageName1, endpoint).jsonPath().getString("id");
         assertTrue(imageId_1.matches("\\d+"));
         String imageId_2 = steps.uploadImage(imagePath + imageName2, endpoint).jsonPath().getString("id");
         assertTrue(imageId_2.matches("\\d+"));
-//        get images metadata from RDS
+// get images metadata from RDS
         retrieveData();
         assertEquals(2, images.size(),
                 "Images list should have length 2, but was: " + images.size());
-//        validate images metadata
+// validate images metadata
         validateImageInfo(images.get(0), imageName1, "83261");
         validateImageInfo(images.get(1), imageName2, "51085");
-//       get images metadata from Swagger API
-        Response image_api_1 = steps.getImageById(Integer.parseInt(imageId_1), endpoint);
+// get images metadata from Swagger API
+        Response image_api_1 = steps.getImageById(Integer.parseInt(imageId_1), endpoint, 200);
         validateImageInfo(new SecureRDSDataReader.ImageMetadata(
                 image_api_1.jsonPath().getString("object_key"),
                 image_api_1.jsonPath().getLong("object_size"),
                 image_api_1.jsonPath().getString("object_type"),
                 image_api_1.jsonPath().getString("last_modified")
         ), imageName1, "83261");
-        Response image_api_2 = steps.getImageById(Integer.parseInt(imageId_1), endpoint);
+        Response image_api_2 = steps.getImageById(Integer.parseInt(imageId_2), endpoint, 200);
         validateImageInfo(new SecureRDSDataReader.ImageMetadata(
                 image_api_2.jsonPath().getString("object_key"),
                 image_api_2.jsonPath().getLong("object_size"),
@@ -97,12 +97,12 @@ public class RdsSecureConnectionTest extends RdsHooks {
         if (!ids.isEmpty()) {
             ids.forEach(id -> {
                 steps.deleteImageById(String.valueOf(id), endpoint);
-//                todo
-                steps.getImageById(id, endpoint).then().statusCode(404);
+                steps.getImageById(id, endpoint, 404);
             });
         }
         ids = steps.getImageIds(endpoint);
-        assertEquals(ids.size(), 0);
+        assertEquals(0, ids.size(),
+                "Expected 0 images, but found: " + ids.size());
 
         retrieveData();
         assertEquals(0, images.size(),
@@ -133,7 +133,7 @@ public class RdsSecureConnectionTest extends RdsHooks {
                         "Image size should be " + size + ", but was: " + image.getSize()),
                 () -> assertEquals("binary/octet-stream", image.getImageType(),
                         "Image type should be \"binary/octet-stream\", but was: " + image.getImageType()),
-                () -> assertTrue(image.getLastModified().matches(currentDate + " \\d{2}:\\d{2}:\\d{2}"),
+                () -> assertTrue(image.getLastModified().matches(currentDate + ".*\\d{2}:\\d{2}:\\d{2}.*"),
                         "Expected last_modified to match pattern '" + currentDate + " \\d{2}:\\d{2}:\\d{2}" +
                                 "' but was: " + image.getLastModified())
         );
