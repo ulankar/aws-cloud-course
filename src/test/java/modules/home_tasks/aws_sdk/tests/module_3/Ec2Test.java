@@ -1,6 +1,5 @@
 package modules.home_tasks.aws_sdk.tests.module_3;
 
-import modules.home_tasks.aws_sdk.utils.BaseRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -24,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("EC2 test suite")
-public class Ec2Test extends BaseRequest {
+public class Ec2Test {
 
     static List<Ec2Model> instances = new ArrayList<>();
     static Ec2Client ec2Client;
