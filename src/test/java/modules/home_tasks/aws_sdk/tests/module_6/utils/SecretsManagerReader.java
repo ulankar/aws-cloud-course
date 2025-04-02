@@ -8,7 +8,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.util.Map;
 
-import static modules.home_tasks.aws_sdk.tests.module_6.utils.RdsHooks.secretsClient;
+import static modules.home_tasks.aws_sdk.utils.AwsHooks.secretsClient;
 
 public class SecretsManagerReader {
 

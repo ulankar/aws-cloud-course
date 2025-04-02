@@ -1,5 +1,6 @@
 package modules.home_tasks.aws_sdk.tests.module_6.utils;
 
+import modules.home_tasks.aws_sdk.utils.AwsHooks;
 import software.amazon.awssdk.services.cloudformation.model.DescribeStacksRequest;
 import software.amazon.awssdk.services.cloudformation.model.DescribeStacksResponse;
 import software.amazon.awssdk.services.cloudformation.model.Output;
@@ -10,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CloudFormationOutputReader extends RdsHooks {
+public class CloudFormationOutputReader extends AwsHooks {
 
     public static Map<String, String> getStackOutputs(String stackName) {
         Map<String, String> outputMap = new HashMap<>();
