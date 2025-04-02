@@ -5,17 +5,14 @@ import io.restassured.RestAssured;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.specification.RequestSpecification;
-import modules.home_tasks.BasicHooks;
 
 
-public abstract class BaseRequest extends BasicHooks {
+public abstract class BaseRequest {
 
-    protected final RequestSpecification request;
-
-    public BaseRequest() {
-        request = RestAssured.given()
-                             .filter(new RequestLoggingFilter())
-                             .filter(new ResponseLoggingFilter())
-                             .filter(new AllureRestAssured());
+    public static RequestSpecification request() {
+        return RestAssured.given()
+                .filter(new RequestLoggingFilter())
+                .filter(new ResponseLoggingFilter())
+                .filter(new AllureRestAssured());
     }
 }

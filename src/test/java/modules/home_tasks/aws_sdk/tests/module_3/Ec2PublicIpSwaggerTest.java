@@ -2,21 +2,21 @@ package modules.home_tasks.aws_sdk.tests.module_3;
 
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
-import modules.home_tasks.aws_sdk.utils.BaseRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static modules.home_tasks.PropertyHandler.getProperty;
+import static modules.home_tasks.aws_sdk.utils.BaseRequest.request;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName("EC2 test suite with Swagger")
-public class Ec2PublicIpSwaggerTest extends BaseRequest {
+public class Ec2PublicIpSwaggerTest {
 
     @Test
     @DisplayName("Verify body from EC2 GET response")
     public void testGetResponse() {
-        Response response = request
+        Response response = request()
                 .get("http://" + getProperty("PublicInstancePublicIp") + "/");
         response.then().statusCode(200);
         assertAll(
@@ -28,7 +28,7 @@ public class Ec2PublicIpSwaggerTest extends BaseRequest {
     @Test
     @DisplayName("Verify headers from EC2 GET response")
     public void testHeaders() {
-        Response response = request
+        Response response = request()
                 .get("http://" + getProperty("PublicInstancePublicIp") + "/");
         Headers headers = response.getHeaders();
         assertAll(

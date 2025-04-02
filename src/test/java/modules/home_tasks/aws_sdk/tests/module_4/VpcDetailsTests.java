@@ -1,7 +1,7 @@
 package modules.home_tasks.aws_sdk.tests.module_4;
 
 import io.qameta.allure.Step;
-import modules.home_tasks.aws_sdk.utils.BaseRequest;
+import modules.home_tasks.BasicHooks;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -11,7 +11,6 @@ import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.*;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -19,13 +18,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("VPC details validation tests")
-public class VpcDetailsTests extends BaseRequest {
+public class VpcDetailsTests extends BasicHooks {
 
     private static Ec2Client ec2Client;
     private static Vpc vpc;
     private static List<SecurityGroup> securityGroups;
     private static List<Subnet> subnets;
-    private final Logger logger = Logger.getLogger(VpcDetailsTests.class.getName());
 
     @Test
     @Order(1)
