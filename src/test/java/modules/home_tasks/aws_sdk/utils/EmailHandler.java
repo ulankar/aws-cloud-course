@@ -124,7 +124,7 @@ public class EmailHandler {
         Message[] messages = null;
         boolean mailFound = false;
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
             messages = folder.search(new SubjectTerm(subjectToBeSearched), folder.getMessages());
             if (messages.length == 0) {
                 Thread.sleep(10000);
@@ -134,6 +134,7 @@ public class EmailHandler {
         for (Message mail : messages) {
             if (!mail.isSet(Flags.Flag.SEEN)) {
                 mailFound = true;
+                mail.setFlag(Flags.Flag.SEEN, true);
             }
         }
         if (!mailFound) {

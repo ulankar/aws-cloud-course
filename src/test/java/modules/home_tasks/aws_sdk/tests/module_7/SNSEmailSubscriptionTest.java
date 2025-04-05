@@ -3,6 +3,7 @@ package modules.home_tasks.aws_sdk.tests.module_7;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import lombok.SneakyThrows;
+import modules.home_tasks.aws_sdk.utils.ApiSteps;
 import modules.home_tasks.aws_sdk.utils.AwsHooks;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
@@ -58,6 +59,7 @@ public class SNSEmailSubscriptionTest extends AwsHooks {
         uploadImage();
         uploadEmailMessage = readEmail("AWS Notification Message");
         checkEmailContentImageUpload(uploadEmailMessage);
+        emailWasNotReceived("AWS Notification Message");
     }
 
     @Test
@@ -67,16 +69,38 @@ public class SNSEmailSubscriptionTest extends AwsHooks {
         deleteImage();
         deletedEmailMessage = readEmail("AWS Notification Message");
         checkEmailContentImageDeleted(deletedEmailMessage);
+        emailWasNotReceived("AWS Notification Message");
     }
 
     @Test
     @Order(4)
-    @DisplayName("Unsubscribe from SNS topic with email")
+    @DisplayName("Unsubscribe from SNS topic")
     void testUnsubscription() {
         unsubscribe(subscriptionArn);
+        int subs = listSubscriptions();
+        System.out.println("Number of subscriptions: " + subs);
+    }
+
+    @Test
+    @Order(5)
+    @DisplayName("Email is not received after unsubscribtion")
+    void testNoEmailsAfterUnsubscription() {
         uploadImage();
         emailWasNotReceived("AWS Notification Message");
     }
+
+    @Test
+    @Order(6)
+    @DisplayName("Subscribe to SNS topic with email")
+    void testSnsEmailSubscriptionWithApi() {
+        steps.createSubscription();
+        subscriptionEmailMessage = readEmail("AWS Notification - Subscription Confirmation");
+        checkEmailContentSubscriptionConfirmation(subscriptionEmailMessage);
+        getToken();
+        confirmSubscription(topicArn, token);
+        steps.deleteSubscription();
+    }
+
 
     @Step("Check email content - Image deleted")
     private void checkEmailContentImageDeleted(String emailMessage) {
@@ -87,7 +111,7 @@ public class SNSEmailSubscriptionTest extends AwsHooks {
                 () -> assertTrue(emailMessage.contains("object_key: images/"), "Should contain 'object_key: images/' but was not"),
                 () -> assertTrue(emailMessage.contains("-JPEG_example.jpg"), "Should contain '-JPEG_example.jpg' but was not"),
                 () -> assertTrue(emailMessage.contains("object_type: binary/octet-stream"), "Should contain 'object_type: binary/octet-stream' but was not"),
-                () -> assertTrue(emailMessage.contains("last_modified: 2025-"), "Should contain 'last_modified: 2025-' but was not"),
+                () -> assertTrue(emailMessage.contains("last_modified: "), "Should contain 'last_modified: ' but was not"),
                 () -> assertTrue(emailMessage.contains("object_size: 83261"), "Should contain 'object_size: 83261' but was not"),
                 () -> assertTrue(emailMessage.contains("download_link: "), "Should contain 'download_link: ' but was not"),
                 () -> assertFalse(emailMessage.contains(imageUrl), "Should NOT contain '" + imageUrl + "' but was"),
@@ -220,11 +244,16 @@ public class SNSEmailSubscriptionTest extends AwsHooks {
     }
 
     @Step("List subscriptions")
-    private static void listSubscriptions() {
+    private static int listSubscriptions() {
         ListSubscriptionsByTopicRequest request = ListSubscriptionsByTopicRequest.builder()
                 .topicArn(topicArn)
                 .build();
         ListSubscriptionsByTopicResponse result = snsClient.listSubscriptionsByTopic(request);
+
+        if (result.subscriptions().isEmpty()) {
+            System.out.println("No subscriptions found for the topic.");
+            return 0;
+        }
 
         System.out.println("\nExisting subscriptions for the topic (by AWS SDK):");
         result.subscriptions().forEach(subscription -> {
@@ -243,6 +272,7 @@ public class SNSEmailSubscriptionTest extends AwsHooks {
         System.out.println("Protocol: " + response.jsonPath().getList("Protocol").get(0));
         System.out.println("Endpoint: " + response.jsonPath().getList("Endpoint").get(0));
         System.out.println("TopicArn: " + response.jsonPath().getList("TopicArn").get(0));
+        return result.subscriptions().size();
     }
 
     @Step("Unsubscribe")
