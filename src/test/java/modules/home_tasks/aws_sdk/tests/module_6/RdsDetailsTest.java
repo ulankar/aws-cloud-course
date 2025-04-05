@@ -1,7 +1,7 @@
 package modules.home_tasks.aws_sdk.tests.module_6;
 
 import io.qameta.allure.Step;
-import modules.home_tasks.aws_sdk.tests.module_6.utils.RdsHooks;
+import modules.home_tasks.aws_sdk.utils.AwsHooks;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("RDS details verification test")
-public class RdsDetailsTest extends RdsHooks {
+public class RdsDetailsTest extends AwsHooks {
 
     private static DBInstance dbInstance;
 

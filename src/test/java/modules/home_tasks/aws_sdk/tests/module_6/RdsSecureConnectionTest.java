@@ -5,7 +5,7 @@ import io.restassured.response.Response;
 import lombok.SneakyThrows;
 import modules.home_tasks.aws_sdk.tests.module_5.SwaggerSteps;
 import modules.home_tasks.aws_sdk.tests.module_6.utils.RDSSecureConnector;
-import modules.home_tasks.aws_sdk.tests.module_6.utils.RdsHooks;
+import modules.home_tasks.aws_sdk.utils.AwsHooks;
 import modules.home_tasks.aws_sdk.tests.module_6.utils.SecureRDSDataReader;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("RDS Secure Connection Test")
-public class RdsSecureConnectionTest extends RdsHooks {
+public class RdsSecureConnectionTest extends AwsHooks {
 
     public static RDSSecureConnector connector;
     private static List<SecureRDSDataReader.ImageMetadata> images;

@@ -38,8 +38,9 @@
 <!--                                <include>**/modules.home_tasks/aws_sdk/tests/module_2/*.java</include>-->
 <!--                                <include>**/modules.home_tasks/aws_sdk/tests/module_3/*.java</include>-->
 <!--                                <include>**/modules.home_tasks/aws_sdk/tests/module_4/*.java</include>-->
-                                <include>**/modules.home_tasks/aws_sdk/tests/module_5/*.java</include>
-                                <include>**/modules.home_tasks/aws_sdk/tests/module_6/*.java</include>
+<!--                                <include>**/modules.home_tasks/aws_sdk/tests/module_5/*.java</include>-->
+<!--                                <include>**/modules.home_tasks/aws_sdk/tests/module_6/*.java</include>-->
+                                <include>**/modules.home_tasks/aws_sdk/tests/module_7/*.java</include>
                             </includes>
                             <excludes>
                                 <exclude>**/modules.home_tasks/aws_console/*.java</exclude>
@@ -302,6 +303,16 @@
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
+            <artifactId>sns</artifactId>
+            <version>2.31.1</version>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>sqs</artifactId>
+            <version>2.31.1</version>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
             <artifactId>rds</artifactId>
             <version>2.31.1</version>
         </dependency>
@@ -325,6 +336,17 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.32</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.7</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>javax.mail-api</artifactId>
+            <version>1.6.2</version>
         </dependency>
     </dependencies>
 
